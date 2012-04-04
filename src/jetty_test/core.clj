@@ -14,6 +14,12 @@
       (let [request-map (servlet/build-request-map request)
             output-stream (.getOutputStream response)]
         (servlet/set-status response 200)
+        (servlet/set-headers response {"Content-Type" "text/plain"
+                                       "Cache-Control" "no-cache, no-store, max-age=0, must-revalidate"
+                                       "Pragma" "no-cache"
+                                       "Expires" "Fri, 01 Jan 1990 00:00:00 GMT"
+                                       "X-Content-Type-Options" "nosniff"
+                                       "Transfer-Encoding" "chunked"})
         (try
           (dotimes [i 50]
             (doto output-stream
