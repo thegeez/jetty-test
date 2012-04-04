@@ -20,6 +20,7 @@
                                        "Expires" "Fri, 01 Jan 1990 00:00:00 GMT"
                                        "X-Content-Type-Options" "nosniff"
                                        "Transfer-Encoding" "chunked"})
+        (.flushBuffer output-stream)
         (try
           (dotimes [i 50]
             (doto output-stream
