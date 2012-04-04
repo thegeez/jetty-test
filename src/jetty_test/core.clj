@@ -12,13 +12,14 @@
   (proxy [AbstractHandler] []
     (handle [target ^Request base-request ^HttpServletRequest request response]
       (let [output-stream (.getOutputStream response)]
+        (println "Before headers and status")
         (doto response
           (.setStatus 200)
           (.setHeader "Content-Type" "text/plain")
           (.setHeader "Connection" "keep-alive")
           (.setHeader "Transfer-Encoding" "chunked")
           .flushBuffer)
-
+        (println "before first print")
         (.print output-stream "Begin\n")
         (try
           (dotimes [i 50]
