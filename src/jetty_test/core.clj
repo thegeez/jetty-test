@@ -20,8 +20,10 @@
           (.setHeader "Transfer-Encoding" "chunked")
           .flushBuffer)
         (println "before first print")
-        (.print output-stream "Begin\n")
+        
         (try
+          (.print output-stream "Begin\n")
+          (println "after first print")
           (dotimes [i 50]
             (doto output-stream
               (.print "Hello")
