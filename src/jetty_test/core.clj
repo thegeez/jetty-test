@@ -12,7 +12,6 @@
   (proxy [AbstractHandler] []
     (handle [target ^Request base-request ^HttpServletRequest request response]
       (let [output-stream (.getOutputStream response)]
-        (.setHandled base-request true)
         (doto response
           (.setStatus 200)
           (.setHeader "Content-Type" "text/plain")
@@ -33,7 +32,8 @@
             (.flush)
             (.close))
           (catch Exception e
-            (println "CONNECTION LOST!")))))))
+            (println "CONNECTION LOST!")))
+        (.setHandled base-request true)))))
 
 
 (defn- create-server
