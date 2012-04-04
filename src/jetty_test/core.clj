@@ -21,7 +21,7 @@
                                        "X-Content-Type-Options" "nosniff"
                                        "Transfer-Encoding" "chunked"})
         (.print output-stream "Begin\n")
-        (.flushBuffer response)
+        ;;(.flushBuffer response)
         (try
           (dotimes [i 50]
             (doto output-stream
