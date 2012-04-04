@@ -22,7 +22,7 @@
         (println "before first print")
         
         (try
-          (.print output-stream "Begin\n")
+          (.print output-stream "Begin")
           (println "after first print")
           (dotimes [i 50]
             (doto output-stream
