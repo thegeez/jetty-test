@@ -18,7 +18,8 @@
           (.setHeader "Connection" "keep-alive")
           (.setHeader "Transfer-Encoding" "chunked")
           .flushBuffer)
-        
+        (println "Begin stream")
+        (.println output-stream "Begin")
         (try
           (dotimes [i 50]
             (doto output-stream
@@ -30,7 +31,7 @@
             (.print "Done")
             (.flush)
             (.close))
-          
+          (println "End of stream")
           (catch Exception e
             (println "CONNECTION LOST!")))
         ))))
