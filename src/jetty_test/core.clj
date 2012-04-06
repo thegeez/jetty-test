@@ -11,36 +11,28 @@
   []
   (proxy [AbstractHandler] []
     (handle [target ^Request base-request ^HttpServletRequest request response]
-      (let [writer (.getWriter response)]
-        (println "Before headers and status")
+      (let [output-stream (.getOutputStream response)]
         (doto response
           (.setStatus 200)
           (.setHeader "Content-Type" "text/plain")
           (.setHeader "Connection" "keep-alive")
           (.setHeader "Transfer-Encoding" "chunked")
           .flushBuffer)
-        (println "before first print")
         
         (try
-          (.println writer "Begin")
-          (.flush writer)
-          (println "after first print")
           (dotimes [i 50]
-            (doto writer
+            (doto output-stream
               (.print "Hello")
               (.println (str i))
               (.flush))
-            (Thread/sleep 1000)
-            (when (.checkError writer)
-              (throw (Exception. "CANNOT WRITE TO STREAMING CONNECTION"))))
-          #_(doto output-stream
+            (Thread/sleep 1000))
+          (doto output-stream
             (.print "Done")
             (.flush)
             (.close))
           
           (catch Exception e
             (println "CONNECTION LOST!")))
-        ;;(.setHandled base-request true)
         ))))
 
 
