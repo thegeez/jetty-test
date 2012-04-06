@@ -40,7 +40,8 @@
           
           (catch Exception e
             (println "CONNECTION LOST!")))
-        (.setHandled base-request true)))))
+        ;;(.setHandled base-request true)
+        ))))
 
 
 (defn- create-server
